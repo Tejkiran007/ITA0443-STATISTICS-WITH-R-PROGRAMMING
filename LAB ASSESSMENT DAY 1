@@ -1,0 +1,135 @@
+   DT:08-02-23                                          ASSESSMENT 1
+ITA0443-STATISTICS WITH R PROGRAMMING
+NAME: B.Jaswanth Reddy
+REG.NO:  192110623	
+
+1. Write a R program to take input from the user (name and age) and display
+the values. Also print the version of R installation.
+name <- readline(prompt="What is your name? ")
+age <- as.numeric(readline(prompt="What is your age? "))
+cat("Your name is", name, "and your age is", age, "\n")
+cat("R version:", R.version$version.string, "\n")
+OUTPUT:
+What is your name? Tej kiran
+What is your age? 19
+Your name is Tej kiran and your age is 19
+R version: R version 4.0.0 (2022-04-22) -- "Acceptance"
+
+2. Write a R program to get the details of the objects in memory.
+obj_list <- ls()
+obj_sizes <- sapply(obj_list, function(x) object.size(get(x)))
+obj_df <- data.frame(Object = obj_list, Size = obj_sizes)
+obj_df <- obj_df[order(obj_df$Size, decreasing = TRUE), ]
+print(obj_df)
+
+OUTPUT:
+        Object  Size
+1          obj_df 1312
+2       obj_sizes  656
+3       obj_list  352
+...
+
+3. Write a R program to create a sequence of numbers from 20 to 50 and find
+the mean of numbers from 20 to 60 and sum of numbers from 51 to 91.
+numbers <- 20:50
+mean_20_60 <- mean(20:60)
+sum_51_91 <- sum(51:91)
+cat("Mean of numbers from 20 to 60:", mean_20_60, "\n")
+cat("Sum of numbers from 51 to 91:", sum_51_91, "\n")
+OUTPUT:
+Mean of numbers from 20 to 60: 40 
+Sum of numbers from 51 to 91: 2715
+
+4. Write a R program to create a vector which contains 10 random integer
+values between -50 and +50.
+random_numbers <- sample(seq(-50,50), 10, replace=TRUE)
+cat("Random integer values:", random_numbers, "\n")
+OUTPUT:
+Random integer values: -11  5  9 -12 -13 -31  -1  1 -18 -12
+
+5. Write a R program to get the first 10 Fibonacci numbers.
+fib_1 <- 0
+fib_2 <- 1
+fib_sequence <- c(fib_1, fib_2)
+for (i in 3:10) {
+  fib_next <- fib_1 + fib_2
+  fib_sequence <- c(fib_sequence, fib_next)
+  fib_1 <- fib_2
+  fib_2 <- fib_next
+}
+cat("The first 10 Fibonacci numbers:", fib_sequence, "\n")
+OUTPUT:
+The first 10 Fibonacci numbers: 0 1 1 2 3 5 8 13 21 34
+
+6. Write a R program to get all prime numbers up to a given number (based on
+the sieve of Eratosthenes).
+get_primes <- function(limit) {
+  primes <- c()
+  is_prime <- rep(TRUE, limit)
+  for (i in 2:(limit^0.5)) {
+    if (is_prime[i]) {
+      primes <- c(primes, i)
+      for (j in (i^2):limit) {
+        if (j %% i == 0) {
+          is_prime[j] <- FALSE
+        }
+      }
+    }
+  }
+  primes <- c(primes, which(is_prime[-(1:sqrt(limit))]))
+  return(primes)
+}
+
+result <- get_primes(100)
+cat("All prime numbers up to 100:", result, "\n")
+OUTPUT:
+All prime numbers up to 100: 2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97
+
+7. Write a R program to print the numbers from 1 to 100 and print “Fizz”for
+multiples of 3, print “Buzz” for multiples of 5, and print “FizzBuzz” for multiples
+of both.
+for (i in 1:100) {
+  if (i %% 3 == 0 & i %% 5 == 0) {
+    cat("FizzBuzz\n")
+  } else if (i %% 3 == 0) {
+    cat("Fizz\n")
+  } else if (i %% 5 == 0) {
+    cat("Buzz\n")
+  } else {
+    cat(i, "\n")
+  }
+}
+OUTPUT:
+1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz
+...
+97
+Fizz
+Buzz\
+8. Write a R program to extract first 10 english letter in lower case and last 10
+letters in upper case and extract letters between 22 nd  to 24 th  letters in upper
+case.
+letters <- c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+first_10_lower <- letters[1:10]
+cat("First 10 letters in lower case:", first_10_lower, "\n")
+last_10_upper <- toupper(letters[17:26])
+cat("Last 10 letters in upper case:", last_10_upper, "\n")
+letters_22_24_upper <- toupper(letters[22:24])
+cat("Letters 22nd to 24th in upper case:", letters_22_24_upper, "\n")
+OUTPUT:
+First 10 letters in lower case: a b c d e f g h i j 
+Last 10 letters in upper case: Q R S T U V W X Y Z 
+Letters 22nd to 24th in upper case: V W Xs
